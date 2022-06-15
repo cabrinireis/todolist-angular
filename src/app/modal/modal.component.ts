@@ -1,5 +1,7 @@
 import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 import axios from 'axios'
+import { TasksService } from '../http/service/tasks'
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -7,7 +9,8 @@ import axios from 'axios'
 })
 export class ModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tasksService : TasksService) { }
+
 
   ngOnInit(): void {
   }
@@ -19,11 +22,22 @@ export class ModalComponent implements OnInit {
   }
 
   updatetask(val: any) {
-    axios.put('http://localhost:3000/tasks/'+ val.id, val)
-    .then(res => {
+    // this.taskObj.task_name = this.addTaskValue;
+    this.tasksService.editTask(val).subscribe(res => {
       console.log(res)
+      this.newItemEvent.emit(false);
+      // this.addTaskValue = '';
+    }, err => {
+      alert(err);
     })
+    // axios.put('http://localhost:3000/tasks/'+ val.id, val)
+    // .then(res => {
+    //   console.log(res)
+    // })
   }
+
+
+ 
 
   @Input()  data: any
   @Input()  active: boolean = false

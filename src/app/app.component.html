@@ -36,52 +36,58 @@
         </thead>
         <tbody>
           <tr *ngFor="let task of tasks">
-            <td>{{ task.id }}</td>
-            <td [ngClass]="{ taskcheckd: task.active === true }">
-              {{ task.description }}
-            </td>
-            <td class="d-flex">
-              <div class="check" (click)="taskChecked(task)">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-                  <path
-                    d="M12 22Q9.925 22 8.1 21.212Q6.275 20.425 4.925 19.075Q3.575 17.725 2.788 15.9Q2 14.075 2 12Q2 9.925 2.788 8.1Q3.575 6.275 4.925 4.925Q6.275 3.575 8.1 2.787Q9.925 2 12 2Q13.625 2 15.075 2.475Q16.525 2.95 17.75 3.8L16.3 5.275Q15.35 4.675 14.275 4.337Q13.2 4 12 4Q8.675 4 6.338 6.337Q4 8.675 4 12Q4 15.325 6.338 17.663Q8.675 20 12 20Q15.325 20 17.663 17.663Q20 15.325 20 12Q20 11.55 19.95 11.1Q19.9 10.65 19.8 10.225L21.425 8.6Q21.7 9.4 21.85 10.25Q22 11.1 22 12Q22 14.075 21.212 15.9Q20.425 17.725 19.075 19.075Q17.725 20.425 15.9 21.212Q14.075 22 12 22ZM10.6 16.6 6.35 12.35 7.75 10.95 10.6 13.8 20.6 3.775 22 5.175Z"
-                  />
-                </svg>
-              </div>
-              <div
-                class="edit"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                (click)="openModal(task)"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#000000"
+            <ng-template [ngIf]="!task.active">
+              <td>{{ task.id }}</td>
+              <td>
+                {{ task.description }}
+              </td>
+              <td class="d-flex">
+                <div class="check" (click)="taskChecked(task)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    width="24"
+                  >
+                    <path
+                      d="M12 22Q9.925 22 8.1 21.212Q6.275 20.425 4.925 19.075Q3.575 17.725 2.788 15.9Q2 14.075 2 12Q2 9.925 2.788 8.1Q3.575 6.275 4.925 4.925Q6.275 3.575 8.1 2.787Q9.925 2 12 2Q13.625 2 15.075 2.475Q16.525 2.95 17.75 3.8L16.3 5.275Q15.35 4.675 14.275 4.337Q13.2 4 12 4Q8.675 4 6.338 6.337Q4 8.675 4 12Q4 15.325 6.338 17.663Q8.675 20 12 20Q15.325 20 17.663 17.663Q20 15.325 20 12Q20 11.55 19.95 11.1Q19.9 10.65 19.8 10.225L21.425 8.6Q21.7 9.4 21.85 10.25Q22 11.1 22 12Q22 14.075 21.212 15.9Q20.425 17.725 19.075 19.075Q17.725 20.425 15.9 21.212Q14.075 22 12 22ZM10.6 16.6 6.35 12.35 7.75 10.95 10.6 13.8 20.6 3.775 22 5.175Z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="edit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="openModal(task)"
                 >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                  />
-                </svg>
-              </div>
-              <div class="delete">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#000000"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-                  />
-                </svg>
-              </div>
-            </td>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+                <div class="delete" (click)="deleteTask(task)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                  >
+                    <path d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    />
+                  </svg>
+                </div>
+              </td>
+            </ng-template>
           </tr>
         </tbody>
       </table>
@@ -94,67 +100,108 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr *ngFor="let task of tasks">
+            <ng-template [ngIf]="task.active">
+              <td>{{ task.id }}</td>
+              <td class="taskcheckd">{{ task.description }}</td>
+              <td>Complete</td>
+            </ng-template>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  <a
-    href="#"
-    class="btn btn-lg btn-success"
-    data-toggle="modal"
-    data-target="#basicModal"
-    (click)="modal = !modal"
-    >Click to open Modal</a
-  >
+
   <!-- modal -->
   <app-modal
+    *ngIf="modal"
     [data]="editTask"
     [active]="modal"
     (newItemEvent)="addItem($event)"
   >
   </app-modal>
-  <!-- <div
-    [ngClass]="{ modal_show: modal === true }"
-    class="modal fade show"
-    id="basicModal"
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    data-bs-whatever="@mdo"
+  >
+    Open modal for @mdo
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    data-bs-whatever="@fat"
+  >
+    Open modal for @fat
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    data-bs-whatever="@getbootstrap"
+  >
+    Open modal for @getbootstrap
+  </button>
+
+  <div
+    class="modal fade"
+    id="exampleModal"
     tabindex="-1"
-    role="dialog"
-    aria-labelledby="basicModal"
+    aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
           <button
             type="button"
-            class="close"
-            data-dismiss="modal"
+            class="btn-close"
+            data-bs-dismiss="modal"
             aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          ></button>
         </div>
         <div class="modal-body">
-          <h3>Modal Body</h3>
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label"
+                >Recipient:</label
+              >
+              <input type="text" class="form-control" id="recipient-name" />
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Message:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-default"
-            data-dismiss="modal"
-            (click)="modal = false"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
           >
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">Send message</button>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>

@@ -1,4 +1,8 @@
-.modal_show{
+.show{
     display: block;
     opacity: 1;
+}
+#basicModal {
+    transition: .3s ease;
+    background: #1815158c;
 }
