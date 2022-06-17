@@ -1,44 +1,28 @@
-import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
-import axios from 'axios'
-import { TasksService } from '../http/service/tasks'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
+  ngOnInit(): void {}
 
-  constructor(private tasksService : TasksService) { }
+  @Output() closeModal = new EventEmitter<boolean>()
+  @Output() confirmed = new EventEmitter<object>()
+  @Output() edited = new EventEmitter<object>()
 
-
-  ngOnInit(): void {
+  close(value: boolean) {
+    this.closeModal.emit(value)
+  }
+  ok(task: object, ok: boolean) {
+    this.confirmed.emit({ task, ok })
+  }
+  updated(task: object, ok: boolean) {
+    this.edited.emit({ task, ok })
   }
 
-  @Output() newItemEvent = new EventEmitter<boolean>()
-
-  addNewItem(value: boolean) {
-    this.newItemEvent.emit(value);
-  }
-
-  updatetask(val: any) {
-    // this.taskObj.task_name = this.addTaskValue;
-    this.tasksService.editTask(val).subscribe(res => {
-      console.log(res)
-      this.newItemEvent.emit(false);
-      // this.addTaskValue = '';
-    }, err => {
-      alert(err);
-    })
-    // axios.put('http://localhost:3000/tasks/'+ val.id, val)
-    // .then(res => {
-    //   console.log(res)
-    // })
-  }
-
-
- 
-
-  @Input()  data: any
-  @Input()  active: boolean = false
+  @Input() data: any
+  @Input() confirm: boolean = false
+  @Input() active: boolean = false
 }

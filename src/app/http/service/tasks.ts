@@ -1,32 +1,29 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import {Task} from '../../model/model'
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs'
+import { Task } from '../../model/model'
 
-
-@Injectable({providedIn: 'root'})
-
+@Injectable({ providedIn: 'root' })
 export class TasksService {
-  
-    serviceUrl: string;
+  serviceUrl: string
 
-    constructor(private http: HttpClient) {
-        this.serviceUrl = "http://localhost:3000/tasks"
-    }
+  constructor(private http: HttpClient) {
+    this.serviceUrl = 'http://localhost:3000/tasks'
+  }
 
-    addTasks(task: Task): Observable<Task> {
-        return this.http.post<Task>(this.serviceUrl, task)
-    }
+  addTasks(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.serviceUrl, task)
+  }
 
-    getAllTask() : Observable<Task[]> {
-        return this.http.get<Task[]>(this.serviceUrl);
-      }
+  getAllTask(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.serviceUrl)
+  }
 
-      deleteTask(task : Task) : Observable<Task> {
-        return this.http.delete<Task>(this.serviceUrl+'/'+task.id);
-      }
-    
-      editTask(task : Task) : Observable<Task> {
-        return this.http.put<Task>(this.serviceUrl+'/'+task.id,task);
-      }
+  deleteTask(task: Task): Observable<Task> {
+    return this.http.delete<Task>(this.serviceUrl + '/' + task.id)
+  }
+
+  editTask(task: Task): Observable<Task> {
+    return this.http.put<Task>(this.serviceUrl + '/' + task.id, task)
+  }
 }
